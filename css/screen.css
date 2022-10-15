@@ -1,17 +1,30 @@
-/*------------------------------------*\
+/* ------------------------------------*\
 #FONTS
 \*------------------------------------*/
 
+/* @font-face {
+    font-family: 'Work Sans';
+    src: url('/fonts/DMSans-Regular.woff2') format('woff2');
+} */
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
 :root {
     /* colors */
+    --color-light: #CCE7FF;
+    --color-dark: #0F3557;
 
+    --color-front: var(--color-light);
+    --color-back: var(--color-dark);
     /* opacity */
+    --opacity-light: 0.8;
+    --opacity-muted: var(--opacity-light);
 
     /* transitions */
+
+    /* sizes */
+    --sun-height: 40px;
 }
 
 /*------------------------------------*\
@@ -27,10 +40,13 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: normal;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-front);
+    color: var(--color-back);
 }
 
 *,
@@ -46,14 +62,10 @@ html {
 * Customize the background color to match your design.
 */
 
-::-moz-selection {
-    background: red;
-    color: white;
-    text-shadow: none;
-}
+
 
 ::selection {
-    background: red;
+    background: var(--color-back);
     color: white;
     text-shadow: none;
 }
@@ -188,6 +200,7 @@ input::placeholder {
     color: gray;
 }
 
+
 /*------------------------------------*\
 #OBJECTS
 \*------------------------------------*/
@@ -249,7 +262,9 @@ input::placeholder {
 */
 
 .c-logo {
-
+    display: flex;
+    align-items: center;
+    font-weight: normal;
 }
 
 /*
@@ -259,7 +274,11 @@ input::placeholder {
 */
 
 .c-sun {
-
+    height: var(--sun-height);
+    /* width: 2rem; */
+    fill: var(--color-back);
+    margin: 0 8px;
+    /* margin-bottom: 8px; */
 }
 
 .c-logo .c-sun {
@@ -271,12 +290,81 @@ input::placeholder {
     ---
     Main app wrapper
 */
+.c-app{
+    /* .c-app de juiste maximum breedte en nodige padding krijgt zoals in het design
+.c-app gecentreerd wordt in het midden.*/
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 32px 32px 8px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    justify-content: space-between;
+    width: 25rem;
+}
+
+.c-app__summary {
+    /* .c-app__summary de juiste font-size en line-height krijgt. */
+    width: 400px;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+}
+.c-app__summary .c-summary-text{
+}
 
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+.c-horizon{
+    margin-bottom: 2.125rem;
+    width: 25rem;
+}
+.c-horizon__line{
+    display: flex;
+    border-top: var(--color-back) 1px solid;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+}
+
+.c-horizon__time {
+    font-size: .9rem;
+    line-height: .875rem;
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding: 22px 40px 0 0;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+    /* margin-top: 40px; */
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    /* font-size: 8px; */
+    transform: translateY(20px);
+    
+}
+
+.c-horizon__sun::before{
+    content: attr(data-time);
+    display: block;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
 
 /*------------------------------------*\
 #UTILITIES
@@ -286,6 +374,9 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+.u-muted {
+    opacity: var(--opacity-muted);
+}
 
 /*------------------------------------*\
 #STATES
@@ -296,6 +387,14 @@ input::placeholder {
 */
 
 /* Night version: just switch the light and dark vars */
+.is-night {
+    --color-front: var(--color-dark);
+    --color-back: var(--color-light);
+ }
+.is-day {
+    --color-front: var(--color-light);
+    --color-back: var(--color-dark);
+}
 
 /*------------------------------------*\
 #MEDIA
